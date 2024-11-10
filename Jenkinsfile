@@ -7,8 +7,7 @@ pipeline {
     }
 
     tools {
-        // Ensuring Maven 3 is used by Jenkins
-        maven 'Maven 3' // Replace with the actual name of the Maven tool configured in Jenkins if it's different
+        maven 'MAVEN3' // Use the correct name as per your Jenkins configuration
     }
 
     stages {
@@ -56,3 +55,4 @@ pipeline {
         }
     } // End of stages block
 } // End of pipeline block
+

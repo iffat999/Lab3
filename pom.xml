@@ -61,7 +61,7 @@
                     <archive>
                         <manifestEntries>
                             <!-- Ensure correct Main-Class entry -->
-                            <Main-Class>com.example.hello.HelloApplication</Main-Class> 
+                            <Main-Class>com.example.hello.Hello</Main-Class> 
                         </manifestEntries>
                     </archive>
                 </configuration>

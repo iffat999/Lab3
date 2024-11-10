@@ -1,44 +1,42 @@
 pipeline {
     agent any
 
+    environment {
+        DOCKER_USERNAME = credentials('Credential_ID') // Reference to the Docker credentials
+    }
+
     stages {
         stage('Checkout') {
             steps {
-                // Check out the source code from the repository
-                git 'https://github.com/iffat999/Lab3.git'
+                checkout scm
             }
         }
 
         stage('Build Maven Project') {
             steps {
-                // Run Maven clean and package commands to build the project
-                script {
-                    sh 'mvn clean package -DskipTests'
-                }
+                sh 'mvn clean package'
             }
         }
 
         stage('Docker Login') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'dockerHubCredentials', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
-                    // Docker login using stored credentials
+                withCredentials([usernamePassword(credentialsId: 'Credential_ID', usernameVariable: 'iffat108', passwordVariable: 'Docker111!!!')]) {
                     sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
                 }
             }
         }
 
-        stage('Docker Build') {
+         stage('Docker Build') {
             steps {
-                // Build Docker image with the tag 'lab3'
-                sh 'docker build -t lab3 .'
+                // Build Docker image with the appropriate tag
+                sh 'docker build -t iffat105/lab3:latest .' 
             }
         }
 
         stage('Docker Push') {
             steps {
-                // Push the Docker image to Docker Hub
-                sh 'docker push lab3'
-            }
+                // Push the Docker image to your Docker Hub repository
+                sh 'docker push iffat105/lab3:latest' 
         }
     }
 }

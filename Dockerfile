@@ -18,7 +18,7 @@ FROM openjdk:11-jre-slim
 WORKDIR /app
 
 # Copy the jar file from the builder stage
-COPY --from=builder /app/target/hello.jar ./app.jar
+COPY target/hello.jar /app/hello.jar
 
 # Command to run the application
 ENTRYPOINT ["java", "-jar", "/app/app.jar"]

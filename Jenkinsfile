@@ -5,7 +5,10 @@ pipeline {
         DOCKER_USERNAME = credentials('Credential_iD') // Fetch Docker Hub username from Jenkins credentials
         DOCKER_PASSWORD = credentials('Credential_iD') // Fetch Docker Hub password from Jenkins credentials
     }
-
+tools {
+        // Ensuring Maven 3 is used by Jenkins
+        maven 'Maven 3' // Replace with the actual name of the Maven tool configured in Jenkins if it's different
+    }
     stages {
         // a. Checkout stage
         stage('Checkout') {
@@ -38,15 +41,14 @@ pipeline {
         stage('Docker Build') {
             steps {
                 // Build Docker image and tag it as 'iffat105/lab3:latest'
-                sh 'docker build -t iffat105/lab3:latest .'  // Replace 'lab3' with your actual Docker image name if needed
-            }
+                sh 'docker build -t iffat105/lab3:latest .'  
         }
 
         // f. Docker push stage
         stage('Docker Push') {
             steps {
                 // Push the Docker image to Docker Hub
-                sh 'docker push iffat105/lab3:latest'  // Replace 'lab3' with your actual Docker image name if needed
+                sh 'docker push iffat105/lab3:latest'  
             }
         }
     }

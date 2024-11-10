@@ -1,14 +1,14 @@
-# Use an OpenJDK base image
+# Use OpenJDK 11 slim image as the base image
 FROM openjdk:11-jre-slim
 
-# Set the working directory in the container
+# Set the working directory inside the container
 WORKDIR /app
 
-# Copy the JAR file from the target folder into the container
+# Copy the JAR file into the container
 COPY target/hello.jar /app/hello.jar
 
-# Expose the port that the application will run on
-EXPOSE 8080
-
-# Command to run the JAR file
+# Set the entry point to run the application
 ENTRYPOINT ["java", "-jar", "/app/hello.jar"]
+
+# Expose port 8080
+EXPOSE 8080

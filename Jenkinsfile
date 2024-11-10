@@ -2,7 +2,8 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_USERNAME = credentials('Credential_iD') // Using the correct Docker Hub credentials ID 'Credential_id'
+        DOCKER_USERNAME = credentials('Credential_iD') // Fetch Docker Hub username from Jenkins credentials
+        DOCKER_PASSWORD = credentials('Credential_iD') // Fetch Docker Hub password from Jenkins credentials
     }
 
     stages {
@@ -22,15 +23,11 @@ pipeline {
             }
         }
 
-        // c. Add your Docker Hub’s password to Jenkins Credentials
-        // This part is already done by creating the 'Credential_id' in Jenkins with the username and password.
-        // The 'Credential_id' will be used in the Docker login stage.
-
         // d. Docker login stage
         stage('Docker Login') {
             steps {
                 // Docker login using credentials stored in Jenkins
-                withCredentials([usernamePassword(credentialsId: 'Credential_iD', usernameVariable: 'iffat105', passwordVariable: 'Docker111!!!')]) {
+                withCredentials([usernamePassword(credentialsId: 'Credential_iD', usernameVariable: 'DOCKER_USERNAME', passwordVariable: 'DOCKER_PASSWORD')]) {
                     // Use the credentials to log into Docker Hub
                     sh 'echo $DOCKER_PASSWORD | docker login --username $DOCKER_USERNAME --password-stdin'
                 }
@@ -54,4 +51,5 @@ pipeline {
         }
     }
 }
+
 

@@ -1,24 +1,14 @@
-# Use an official Maven image as the base image
-FROM maven:3.8.4-openjdk-11-slim AS builder
-
-# Set the working directory in the container
-WORKDIR /app
-
-# Copy the pom.xml and source code into the container
-COPY pom.xml .
-COPY src ./src
-
-# Run Maven to build the application
-RUN mvn clean package
-
-# Use a lightweight image to run the application
+# Use an official Java runtime as a parent image
 FROM openjdk:11-jre-slim
 
 # Set the working directory in the container
 WORKDIR /app
 
-# Copy the jar file from the builder stage
+# Copy the JAR file from the target folder into the container
 COPY target/hello.jar /app/hello.jar
 
-# Command to run the application
-ENTRYPOINT ["java", "-jar", "/app/app.jar"]
+# Make port 8080 available to the world outside this container
+EXPOSE 8080
+
+# Run the JAR file
+ENTRYPOINT ["java", "-jar", "/app/hello.jar"]
